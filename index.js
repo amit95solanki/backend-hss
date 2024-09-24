@@ -4,17 +4,19 @@ const moragan = require("morgan");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const userRoute = require("./routes/user.js");
 
-//dotenv conig
+// dotenv config
 dotenv.config();
 
-//mongodb connection
+// MongoDB connection
 connectDB();
 
-//rest obejct
+// Rest object
 const app = express();
 app.use(cors());
-//middlewares
+
+// Middlewares
 app.use(express.json());
 app.use(moragan("dev"));
 
@@ -22,14 +24,16 @@ app.get("/hello", (req, res) => {
   res.send("API Working with /api/v1");
 });
 
-//routes
-// app.use("/api/v1/user", require("./routes/userRoutes"));
+// User routes
+app.use("/api/v1/user", userRoute);
 // app.use("/api/v1/admin", require("./routes/adminRoutes"));
 // app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
 // app.use("/api/v1/blog", require("./routes/blogRoutes"));
-//port
+
+// Port
 const port = process.env.PORT || 8080;
-//listen port
+
+// Listen on port
 app.listen(port, () => {
   console.log(
     `Server Running in ${process.env.NODE_MODE} Mode on port ${process.env.PORT}`
