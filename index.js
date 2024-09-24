@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(moragan("dev"));
 
 app.get("/hello", (req, res) => {
-  res.send("API Working with /api/v1");
+  res.send("API Working Amit");
 });
 
 // User routes
