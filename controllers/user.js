@@ -140,11 +140,7 @@ const generateAccessToken = (user) => {
 
 const login = TryCatch(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(
-    email,
-    password,
-    "========================================================="
-  );
+
   const userData = await User.findOne({ email });
   if (!userData) return next(new ErrorHandler("Invalid email - password", 401));
   const passwordMatch = await bcrypt.compare(password, userData.password);
@@ -152,10 +148,7 @@ const login = TryCatch(async (req, res, next) => {
     return next(new ErrorHandler("Invalid email - password", 401));
   if (userData.is_Verified === 0)
     return next(new ErrorHandler("Please verify your account", 402));
-  console.log(
-    "=========================================================",
-    userData
-  );
+
   const accessToken = await generateAccessToken({ user: userData });
   return res.status(200).json({
     success: true,
